@@ -1,0 +1,8 @@
+/usr/bin/kenfmcoin-cli		--	gen_context(system_u:object_r:kenfmcoin_exec_t,s0)
+/usr/sbin/kenfmcoind		--	gen_context(system_u:object_r:kenfmcoin_exec_t,s0)
+/usr/lib(64)?/kenfmcoin/kenfmcoind		--	gen_context(system_u:object_r:kenfmcoin_exec_t,s0)
+
+/etc/kenfmcoin(/.*)?		gen_context(system_u:object_r:kenfmcoin_conf_t,s0)
+/var/lib/kenfmcoin(/.*)?		gen_context(system_u:object_r:kenfmcoin_var_lib_t,s0)
+
+(/var)?/run/kenfmcoind(/.*)?   gen_context(system_u:object_r:kenfmcoin_var_run_t,s0)

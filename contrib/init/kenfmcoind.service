@@ -1,0 +1,22 @@
+[Unit]
+Description=KenFMcoin's distributed currency daemon
+After=network.target
+
+[Service]
+User=kenfmcoin
+Group=kenfmcoin
+
+Type=forking
+PIDFile=/var/lib/kenfmcoind/kenfmcoind.pid
+ExecStart=/usr/bin/kenfmcoind -daemon -pid=/var/lib/kenfmcoind/kenfmcoind.pid \
+-conf=/etc/kenfmcoin/kenfmcoin.conf -datadir=/var/lib/kenfmcoind -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

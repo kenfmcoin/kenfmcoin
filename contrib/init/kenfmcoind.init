@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  kenfmcoind The kenfmcoin core server.
+#
+#
+# chkconfig: 345 80 20
+# description: kenfmcoind
+# processname: kenfmcoind
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/kenfmcoind, see below
+if [ -f /etc/sysconfig/kenfmcoind ]; then
+        . /etc/sysconfig/kenfmcoind
+fi
+
+RETVAL=0
+
+prog=kenfmcoind
+# you can override the lockfile via KENFMCOIND_LOCKFILE in /etc/sysconfig/kenfmcoind
+lockfile=${KENFMCOIND_LOCKFILE-/var/lock/subsys/kenfmcoind}
+
+# kenfmcoind defaults to /usr/bin/kenfmcoind, override with KENFMCOIND_BIN
+kenfmcoind=${KENFMCOIND_BIN-/usr/bin/kenfmcoind}
+
+# kenfmcoind opts default to -disablewallet, override with KENFMCOIND_OPTS
+kenfmcoind_opts=${KENFMCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $kenfmcoind $kenfmcoind_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

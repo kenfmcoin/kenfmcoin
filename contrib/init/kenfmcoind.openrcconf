@@ -1,0 +1,33 @@
+# /etc/conf.d/kenfmcoind: config file for /etc/init.d/kenfmcoind
+
+# Config file location
+#KENFMCOIND_CONFIGFILE="/etc/kenfmcoin/kenfmcoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $KENFMCOIND_USER)
+#KENFMCOIND_PIDDIR="/var/run/kenfmcoind"
+
+# What filename to give the pidfile
+#KENFMCOIND_PIDFILE="${KENFMCOIND_PIDDIR}/kenfmcoind.pid"
+
+# Where to write kenfmcoind data (be mindful that the blockchain is large)
+#KENFMCOIND_DATADIR="/var/lib/kenfmcoind"
+
+# User and group to own kenfmcoind process
+#KENFMCOIND_USER="kenfmcoin"
+#KENFMCOIND_GROUP="kenfmcoin"
+
+# Path to kenfmcoind executable
+#KENFMCOIND_BIN="/usr/bin/kenfmcoind"
+
+# Nice value to run kenfmcoind under
+#KENFMCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#KENFMCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for kenfmcoind to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+KENFMCOIND_SIGTERM_TIMEOUT=60

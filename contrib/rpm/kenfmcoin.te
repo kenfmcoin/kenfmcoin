@@ -1,0 +1,81 @@
+policy_module(kenfmcoin, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type kenfmcoin_t;
+type kenfmcoin_exec_t;
+init_daemon_domain(kenfmcoin_t, kenfmcoin_exec_t)
+
+permissive kenfmcoin_t;
+
+type kenfmcoin_initrc_exec_t;
+init_script_file(kenfmcoin_initrc_exec_t)
+
+type kenfmcoin_conf_t;
+files_type(kenfmcoin_conf_t)
+
+type kenfmcoin_var_lib_t;
+files_type(kenfmcoin_var_lib_t)
+
+type kenfmcoin_var_run_t;
+files_type(kenfmcoin_var_run_t)
+
+type kenfmcoin_port_t;
+corenet_port(kenfmcoin_port_t)
+
+########################################
+#
+# kenfmcoin local policy
+#
+allow kenfmcoin_t self:process { fork };
+
+allow kenfmcoin_t self:fifo_file rw_fifo_file_perms;
+allow kenfmcoin_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(kenfmcoin_t, kenfmcoin_conf_t, kenfmcoin_conf_t)
+manage_files_pattern(kenfmcoin_t, kenfmcoin_conf_t, kenfmcoin_conf_t)
+
+manage_dirs_pattern(kenfmcoin_t, kenfmcoin_var_lib_t, kenfmcoin_var_lib_t)
+manage_files_pattern(kenfmcoin_t, kenfmcoin_var_lib_t, kenfmcoin_var_lib_t)
+files_var_lib_filetrans(kenfmcoin_t, kenfmcoin_var_lib_t, { dir file })
+
+manage_dirs_pattern(kenfmcoin_t, kenfmcoin_var_run_t, kenfmcoin_var_run_t)
+manage_files_pattern(kenfmcoin_t, kenfmcoin_var_run_t, kenfmcoin_var_run_t)
+
+sysnet_dns_name_resolve(kenfmcoin_t)
+corenet_all_recvfrom_unlabeled(kenfmcoin_t)
+
+allow kenfmcoin_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(kenfmcoin_t)
+corenet_tcp_sendrecv_generic_node(kenfmcoin_t)
+corenet_tcp_sendrecv_all_ports(kenfmcoin_t)
+corenet_tcp_bind_generic_node(kenfmcoin_t)
+
+gen_require(`
+    type kenfmcoin_port_t;
+')
+allow kenfmcoin_t kenfmcoin_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type kenfmcoin_port_t;
+')
+allow kenfmcoin_t kenfmcoin_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(kenfmcoin_t)
+
+files_read_etc_files(kenfmcoin_t)
+
+miscfiles_read_localization(kenfmcoin_t)
+
+sysnet_dns_name_resolve(kenfmcoin_t)
+
+allow kenfmcoin_t kenfmcoin_exec_t:file execute_no_trans;
+allow kenfmcoin_t self:process setsched;
+corecmd_exec_ls(kenfmcoin_t)
+corenet_tcp_connect_http_port(kenfmcoin_t)
+dev_read_urand(kenfmcoin_t)
+fs_getattr_xattr_fs(kenfmcoin_t)
+kernel_read_system_state(kenfmcoin_t)

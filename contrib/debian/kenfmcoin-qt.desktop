@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=KenFMcoin Core
+Comment=Connect to the KenFMcoin P2P Network
+Comment[de]=Verbinde mit dem KenFMcoin peer-to-peer Netzwerk
+Comment[fr]=KenFMcoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=KenFMcoin, eşten eşe kriptografik sanal para birimi
+Exec=kenfmcoin-qt %u
+Terminal=false
+Type=Application
+Icon=kenfmcoin128
+MimeType=x-scheme-handler/kenfmcoin;
+Categories=Office;Finance;

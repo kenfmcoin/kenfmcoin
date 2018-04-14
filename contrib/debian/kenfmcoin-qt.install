@@ -1,0 +1,6 @@
+usr/local/bin/kenfmcoin-qt usr/bin
+share/pixmaps/kenfmcoin32.xpm usr/share/pixmaps
+share/pixmaps/kenfmcoin16.xpm usr/share/pixmaps
+share/pixmaps/kenfmcoin128.png usr/share/pixmaps
+debian/kenfmcoin-qt.desktop usr/share/applications
+debian/kenfmcoin-qt.protocol usr/share/kde4/services/
